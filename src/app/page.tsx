@@ -1,6 +1,5 @@
 import { candidatures } from "@/data/candidatures";
-// import { StatBar } from "@/components/StatBar";
-// import { ApplicationTable } from "@/components/ApplicationTable";
+import { ApplicationTable } from "@/components/ApplicationTable";
 
 export default function App() {
     return (
@@ -20,10 +19,7 @@ export default function App() {
                         statuts, les priorités et les prochaines actions.
                     </p>
                 </header>
-
-                {/* <StatBar candidatures={candidatures} /> */}
-
-                {/* <ApplicationTable candidatures={candidatures} /> */}
+                <ApplicationTable candidatures={candidatures} />
             </section>
         </main>
     );
