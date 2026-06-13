@@ -1,0 +1,103 @@
+import type { Candidature } from "@/lib/types";
+
+export const candidatures: Candidature[] = [
+    {
+        id: "cand_001",
+        mode: "spontanee",
+        entreprise: "Groupe Atlantic",
+        posteVise: "Alternance Expert Marketing Digital",
+        contrat: "alternance",
+        statut: "envoyee",
+        priorite: "haute",
+        dateCreation: "2026-06-10",
+        dateEnvoi: "2026-06-11",
+        dateRelance: "2026-06-18",
+        contact: "Service recrutement",
+        canalApproche: "site_entreprise",
+        raisonCiblage:
+            "Entreprise industrielle connue avec des enjeux de contenu, SEO et communication digitale.",
+        notes:
+            "Adapter le CV autour du profil hybride marketing digital, contenu et culture web.",
+    },
+    {
+        id: "cand_002",
+        mode: "annonce",
+        entreprise: "Agence Digitale Paris",
+        posteVise: "Chargé de marketing digital & contenus",
+        contrat: "alternance",
+        statut: "a_preparer",
+        priorite: "haute",
+        dateCreation: "2026-06-12",
+        sourceAnnonce: "linkedin",
+        urlAnnonce: "https://www.linkedin.com/jobs/view/example",
+        referenceAnnonce: "LINKEDIN-ALT-2026-001",
+        notes:
+            "Mettre en avant SEO, rédaction web, portfolio, projets Next.js et reconversion Oreegami.",
+    },
+    {
+        id: "cand_003",
+        mode: "annonce",
+        entreprise: "Startup SaaS RH",
+        posteVise: "Customer Success Manager Junior",
+        contrat: "cdi",
+        statut: "entretien",
+        priorite: "moyenne",
+        dateCreation: "2026-06-03",
+        dateEnvoi: "2026-06-04",
+        dateReponse: "2026-06-09",
+        sourceAnnonce: "welcome_to_the_jungle",
+        urlAnnonce: "https://www.welcometothejungle.com/fr/companies/example/jobs/example",
+        contact: "Laura Martin",
+        notes:
+            "Positionner le profil sur l’expérience client, le bilingue FR/EN et les projets digitaux.",
+    },
+    {
+        id: "cand_004",
+        mode: "spontanee",
+        entreprise: "Cabinet Growth Marketing",
+        posteVise: "Assistant SEO / Content Marketing",
+        contrat: "stage",
+        statut: "relancee",
+        priorite: "moyenne",
+        dateCreation: "2026-05-28",
+        dateEnvoi: "2026-05-29",
+        dateRelance: "2026-06-05",
+        canalApproche: "linkedin",
+        contact: "Consultant marketing LinkedIn",
+        raisonCiblage:
+            "Cabinet orienté acquisition, SEO et stratégie de contenu, cohérent avec mon projet de reconversion.",
+        notes:
+            "Relance envoyée après une semaine. Attendre encore quelques jours avant nouvelle relance.",
+    },
+    {
+        id: "cand_005",
+        mode: "annonce",
+        entreprise: "PME E-commerce",
+        posteVise: "Assistant marketing digital",
+        contrat: "cdd",
+        statut: "sans_reponse",
+        priorite: "basse",
+        dateCreation: "2026-05-20",
+        dateEnvoi: "2026-05-21",
+        dateRelance: "2026-05-28",
+        sourceAnnonce: "indeed",
+        urlAnnonce: "https://www.indeed.com/viewjob?jk=example",
+        notes:
+            "Candidature intéressante mais moins prioritaire car contrat court et peu d’informations sur les missions.",
+    },
+    {
+        id: "cand_006",
+        mode: "spontanee",
+        entreprise: "Collectif Freelance Web",
+        posteVise: "Assistant acquisition digitale",
+        contrat: "freelance",
+        statut: "a_preparer",
+        priorite: "basse",
+        dateCreation: "2026-06-13",
+        canalApproche: "reseau",
+        raisonCiblage:
+            "Possibilité de missions courtes pour renforcer le portfolio et l’expérience terrain.",
+        notes:
+            "Préparer un message court avec lien vers le portfolio.",
+    },
+];
