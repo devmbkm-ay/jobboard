@@ -1,3 +1,6 @@
+import type { StatutCandidature } from "@/lib/status";
+import type { PrioriteCandidature } from "@/lib/priority";
+
 export type ISODate = `${number}-${number}-${number}`;
 
 export const CONTRAT_CANDIDATURE = {
@@ -9,16 +12,6 @@ export const CONTRAT_CANDIDATURE = {
 } as const;
 
 export type ContratCandidature = keyof typeof CONTRAT_CANDIDATURE;
-
-
-export const PRIORITE_CANDIDATURE = {
-    haute: "Haute",
-    moyenne: "Moyenne",
-    basse: "Basse",
-} as const;
-
-export type PrioriteCandidature = keyof typeof PRIORITE_CANDIDATURE;
-
 
 export const SOURCE_ANNONCE = {
     linkedin: "LinkedIn",
@@ -41,19 +34,6 @@ export const CANAL_APPROCHE = {
 } as const;
 
 export type CanalApproche = keyof typeof CANAL_APPROCHE;
-
-
-export const STATUT_CANDIDATURE = {
-    a_preparer: "À préparer",
-    envoyee: "Envoyée",
-    relancee: "Relancée",
-    entretien: "Entretien",
-    refusee: "Refusée",
-    acceptee: "Acceptée",
-    sans_reponse: "Sans réponse",
-} as const;
-
-export type StatutCandidature = keyof typeof STATUT_CANDIDATURE;
 
 
 export interface BaseCandidature {
