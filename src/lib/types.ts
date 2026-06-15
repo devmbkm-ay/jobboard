@@ -64,6 +64,7 @@ export interface CandidatureAnnonce extends BaseCandidature {
     referenceAnnonce?: string;
 }
 
+// On exporte le type Candidature qui peut être soit une candidature spontanée, soit une candidature à une annonce.
 export type Candidature =
     | CandidatureSpontanee
     | CandidatureAnnonce;
