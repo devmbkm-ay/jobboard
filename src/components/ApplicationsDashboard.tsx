@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Candidature } from "@/lib/types";
 import { ApplicationTable } from "./ApplicationTable";
 import { ApplicationForm } from "./ApplicationForm";
-import { candidatures as initialCandidatures } from "@/data/candidatures";
-
 
 export default function ApplicationsDashboard() {
     const [candidatures, setCandidatures] = useState<Candidature[]>([]);
@@ -13,9 +11,6 @@ export default function ApplicationsDashboard() {
     const addCandidature = (newCandidature: Candidature) => {
         setCandidatures((prevCandidatures) => [...prevCandidatures, newCandidature]);
     };
-
-    // Ce log va s'exécuter à chaque changement d'état
-    console.log("Le formulaire est-il ouvert ?", showForm);
 
     return (
         <div>
@@ -42,7 +37,6 @@ export default function ApplicationsDashboard() {
                     }}
                 />
             )}
-            {/* <ApplicationTable candidatures={candidatures} /> */}
             <div className="mt-6">
                 <ApplicationTable candidatures={candidatures} />
             </div>

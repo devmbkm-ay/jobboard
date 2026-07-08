@@ -68,18 +68,3 @@ export interface CandidatureAnnonce extends BaseCandidature {
 export type Candidature =
     | CandidatureSpontanee
     | CandidatureAnnonce;
-
-export type Test = Omit<Candidature, "id">;
-
-// Exemple de candidature pour les tests
-const testAnnonce: Test = {
-    entreprise: "Decathlon",
-    posteVise: "Alternance marketing digital",
-    contrat: "alternance",
-    statut: "envoyee" as StatutCandidature,
-    dateCreation: "2026-06-15",
-    priorite: "haute" as PrioriteCandidature,
-
-    mode: "annonce",
-    sourceAnnonce: "linkedin",
-};

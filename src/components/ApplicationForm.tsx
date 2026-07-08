@@ -79,7 +79,7 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
 
         // On extrait et prépare la base commune
         const baseCandidature = {
-            id: `cand_${Date.now()}`,
+            id: crypto.randomUUID(),
             entreprise: formData.entreprise,
             posteVise: formData.posteVise,
             contrat: formData.contrat,
@@ -238,6 +238,10 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
                         <div className="flex flex-col gap-1">
                             <label className="font-medium text-slate-700">Envoyée le</label>
                             <input type="date" name="dateEnvoi" value={formData.dateEnvoi} onChange={handleChange} className="rounded-lg border p-2" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <label className="font-medium text-slate-700">Relance prévue le</label>
+                            <input type="date" name="dateRelance" value={formData.dateRelance} onChange={handleChange} className="rounded-lg border p-2" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <label className="font-medium text-slate-700">Contact RH</label>
