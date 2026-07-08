@@ -3,11 +3,19 @@
 import { useState } from "react";
 import { Candidature } from "@/lib/types";
 import { ApplicationTable } from "./ApplicationTable";
+import { ApplicationForm } from "./ApplicationForm";
 import { candidatures as initialCandidatures } from "@/data/candidatures";
 
 
 export default function ApplicationsDashboard() {
-    const [candidatures, setCandidatures] = useState<Candidature[]>(initialCandidatures);
+    const [candidatures, setCandidatures] = useState<Candidature[]>([]);
+    const [showForm, setShowForm] = useState(false);
+    const addCandidature = (newCandidature: Candidature) => {
+        setCandidatures((prevCandidatures) => [...prevCandidatures, newCandidature]);
+    };
+
+    // Ce log va s'exécuter à chaque changement d'état
+    console.log("Le formulaire est-il ouvert ?", showForm);
 
     return (
         <div>
@@ -17,11 +25,27 @@ export default function ApplicationsDashboard() {
                     Tableau de bord
                 </h1>
                 {/* Le bouton est maintenant ici, aligné à droite sur grand écran */}
-                <button className="flex h-fit w-fit rounded-lg bg-blue-600 px-3 py-1 text-sm font-medium mb-4 text-white hover:bg-blue-700">
+                <button
+                    className="flex h-fit w-fit rounded-lg bg-blue-600 px-3 py-1 text-sm font-medium mb-4 text-white hover:bg-blue-700"
+                    onClick={() => {
+                        setShowForm(true);
+                    }}>
                     Ajouter une candidature
                 </button>
             </div>
-            <ApplicationTable candidatures={candidatures} />
+            {showForm && (
+                <ApplicationForm
+                    onClose={() => setShowForm(false)}
+                    onSubmit={(newCandidature) => {
+                        addCandidature(newCandidature);
+                        setShowForm(false);
+                    }}
+                />
+            )}
+            {/* <ApplicationTable candidatures={candidatures} /> */}
+            <div className="mt-6">
+                <ApplicationTable candidatures={candidatures} />
+            </div>
         </div>
     );
 }
