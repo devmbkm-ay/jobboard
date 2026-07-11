@@ -1,20 +1,29 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { Candidature } from "@/lib/types";
 import { ApplicationTable } from "./ApplicationTable";
 import { ApplicationForm } from "./ApplicationForm";
 import { DetailDrawer } from "./DetailDrawer";
+import {
+    getCandidaturesSnapshot,
+    getServerCandidaturesSnapshot,
+    saveCandidatures,
+    subscribeCandidatures,
+} from "@/lib/storage";
 
 export default function ApplicationsDashboard() {
-    const [candidatures, setCandidatures] = useState<Candidature[]>([]);
+    const candidatures = useSyncExternalStore(
+        subscribeCandidatures,
+        getCandidaturesSnapshot,
+        getServerCandidaturesSnapshot
+    );
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [showForm, setShowForm] = useState(false);
     const addCandidature = (newCandidature: Candidature) => {
-        setCandidatures((prevCandidatures) => [...prevCandidatures, newCandidature]);
+        saveCandidatures([...candidatures, newCandidature]);
     };
     const selectedCandidature = candidatures.find(c => c.id === selectedId) ?? null;
-
 
     return (
         <div>
