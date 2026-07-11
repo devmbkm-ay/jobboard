@@ -25,7 +25,7 @@ export function DetailDrawer({
                 <div className="flex items-start justify-between">
                     <div>
                         <h2 className="text-xl font-bold text-slate-900">{candidature.entreprise}</h2>
-                        <span className="mt-1 inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
+                        <span className="mt-1 inline-block rounded-full bg-slate-700 border border-slate-500 px-2 py-0.5 text-xs font-medium text-slate-100">
                             {candidature.mode === "annonce" ? "Réponse à une annonce" : "Candidature spontanée"}
                         </span>
                     </div>
