@@ -67,9 +67,10 @@ const columns = [
 ] as const;
 
 export function ApplicationTable({
-    candidatures,
+    candidatures, onRowClick
 }: {
     candidatures: Candidature[];
+    onRowClick: (id: string) => void;
 }) {
     return (
         <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -90,7 +91,11 @@ export function ApplicationTable({
 
                 <tbody className="divide-y divide-slate-200 bg-white">
                     {candidatures.map((candidature) => (
-                        <tr key={candidature.id} className="transition hover:bg-slate-50">
+                        <tr
+                            key={candidature.id}
+                            className="transition hover:bg-slate-50"
+                            onClick={() => onRowClick(candidature.id)}
+                        >
                             {columns.map((column) => (
                                 <td key={column.key} className={cellClassName}>
                                     {column.render(candidature)}

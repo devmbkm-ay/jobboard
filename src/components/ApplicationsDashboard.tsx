@@ -7,10 +7,13 @@ import { ApplicationForm } from "./ApplicationForm";
 
 export default function ApplicationsDashboard() {
     const [candidatures, setCandidatures] = useState<Candidature[]>([]);
+    const [selectedId, setSelectedId] = useState<string | null>(null);
     const [showForm, setShowForm] = useState(false);
     const addCandidature = (newCandidature: Candidature) => {
         setCandidatures((prevCandidatures) => [...prevCandidatures, newCandidature]);
     };
+    const selectedCandidature = candidatures.find(c => c.id === selectedId) ?? null;
+
 
     return (
         <div>
@@ -38,7 +41,9 @@ export default function ApplicationsDashboard() {
                 />
             )}
             <div className="mt-6">
-                <ApplicationTable candidatures={candidatures} />
+                <ApplicationTable
+                    candidatures={candidatures}
+                    onRowClick={setSelectedId} />
             </div>
         </div>
     );
