@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Candidature } from "@/lib/types";
 import { ApplicationTable } from "./ApplicationTable";
 import { ApplicationForm } from "./ApplicationForm";
+import { DetailDrawer } from "./DetailDrawer";
 
 export default function ApplicationsDashboard() {
     const [candidatures, setCandidatures] = useState<Candidature[]>([]);
@@ -40,10 +41,17 @@ export default function ApplicationsDashboard() {
                     }}
                 />
             )}
+            {selectedCandidature && (
+                <DetailDrawer
+                    candidature={selectedCandidature}
+                    onClose={() => setSelectedId(null)}
+                />
+            )}
             <div className="mt-6">
                 <ApplicationTable
                     candidatures={candidatures}
                     onRowClick={setSelectedId} />
+
             </div>
         </div>
     );
