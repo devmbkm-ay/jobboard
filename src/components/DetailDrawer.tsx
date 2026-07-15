@@ -12,10 +12,12 @@ export function DetailDrawer({
     candidature,
     onClose,
     onDelete,
+    onEdit
 }: {
     candidature: Candidature | null;
     onClose: () => void;
     onDelete: (id: string) => void;
+    onEdit: (id: string) => void;
 }) {
     if (!candidature) return null;
 
@@ -147,8 +149,9 @@ export function DetailDrawer({
                         </button>
                         <button
                             type="button"
-                            // onClick={onClose}
-                            className="mt-auto rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200"
+                            onClick={() => onEdit(candidature.id)}
+                            // onClickCapture={onClose}
+                            className="mt-auto rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                         >
                             Editer
                         </button>

@@ -20,10 +20,37 @@ export default function ApplicationsDashboard() {
     );
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [showForm, setShowForm] = useState(false);
+    const [editingId, setEditingId] = useState<string | null>(null);
     const addCandidature = (newCandidature: Candidature) => {
         saveCandidatures([...candidatures, newCandidature]);
     };
-    const selectedCandidature = candidatures.find(c => c.id === selectedId) ?? null;
+    const selectedCandidature = candidatures.find(candidature => candidature.id === selectedId) ?? null;
+    const editingCandidature = candidatures.find(candidature => candidature.id === editingId) ?? null;
+    const updateCandidature = (updatedCandidature: Candidature) => {
+        const updatedCandidatures = candidatures.map(candidature =>
+            candidature.id === updatedCandidature.id ? updatedCandidature : candidature
+        );
+        saveCandidatures(updatedCandidatures);
+    };
+
+    const closeForm = () => {
+        setShowForm(false);
+        setEditingId(null);
+    };
+
+    // Fonction pour éditer une candidature
+    const editCandidature = (id: string) => {
+        // Logique pour éditer la candidature en filtrant l'ID de la candidature à partir de la liste des candidatures
+        const candidatureToEdit = candidatures.find(candidature => candidature.id === id);
+        if (!candidatureToEdit) {
+            console.error("Candidature non trouvée pour l'ID :", id);
+            return;
+        }
+        setEditingId(id);
+        setSelectedId(null);
+        setShowForm(true);
+
+    };
     const deleteCandidature = (id: string) => {
         const remainingCandidatures = candidatures.filter(
             (candidature) => candidature.id !== id
@@ -33,6 +60,8 @@ export default function ApplicationsDashboard() {
             setSelectedId(null);
         }
     };
+
+
     return (
         <div>
             {/* On utilise flex et justify-between pour séparer le texte et le bouton */}
@@ -44,6 +73,7 @@ export default function ApplicationsDashboard() {
                 <button
                     className="flex h-fit w-fit rounded-lg bg-blue-600 px-3 py-1 text-sm font-medium mb-4 text-white hover:bg-blue-700"
                     onClick={() => {
+                        setEditingId(null); // Réinitialiser l'édition si on ouvre le formulaire pour une nouvelle candidature
                         setShowForm(true);
                     }}>
                     Ajouter une candidature
@@ -51,21 +81,24 @@ export default function ApplicationsDashboard() {
             </div>
             {showForm && (
                 <ApplicationForm
-                    onClose={() => setShowForm(false)}
-                    onSubmit={(newCandidature) => {
-                        addCandidature(newCandidature);
-                        setShowForm(false);
+                    onClose={closeForm}
+                    onSubmit={(submittedCandidature) => {
+                        if (editingCandidature) {
+                            updateCandidature(submittedCandidature);
+                        } else {
+                            addCandidature(submittedCandidature);
+                        }
+                        closeForm();
                     }}
+                    candidatureToEdit={editingCandidature ?? undefined}
                 />
             )}
             {selectedCandidature && (
                 <DetailDrawer
                     candidature={selectedCandidature}
-                    onDelete={deleteCandidature}
                     onClose={() => setSelectedId(null)}
-                // onEdit={() => {
-                // Logique d'édition
-                // }}
+                    onDelete={deleteCandidature}
+                    onEdit={editCandidature}
                 />
             )}
             <div className="mt-6">

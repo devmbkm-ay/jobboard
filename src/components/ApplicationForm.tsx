@@ -12,7 +12,8 @@ import { CONTRAT_CANDIDATURE, SOURCE_ANNONCE, CANAL_APPROCHE } from "@/lib/types
 
 interface ApplicationFormProps {
     onClose: () => void;
-    onSubmit: (nouvelleCandidature: Candidature) => void;
+    onSubmit: (candidature: Candidature) => void;
+    candidatureToEdit?: Candidature; // Optionnel, pour l'édition
 }
 
 // 1. On crée un type spécifique pour l'état du formulaire (plat et tolérant)
@@ -35,27 +36,30 @@ interface FormState {
     canalApproche: CanalApproche;
     raisonCiblage: string;
 }
+export function createInitialFormState(candidatureToEdit?: Candidature): FormState {
+    return {
+        entreprise: candidatureToEdit?.entreprise ?? "",
+        posteVise: candidatureToEdit?.posteVise ?? "",
+        contrat: candidatureToEdit?.contrat ?? "cdi",
+        statut: candidatureToEdit?.statut ?? "a_preparer",
+        priorite: candidatureToEdit?.priorite ?? "moyenne",
+        dateCreation: candidatureToEdit?.dateCreation ?? new Date().toISOString().split("T")[0], // Format YYYY-MM-DD
+        dateEnvoi: candidatureToEdit?.dateEnvoi ?? "",
+        dateRelance: candidatureToEdit?.dateRelance ?? "",
+        contact: candidatureToEdit?.contact ?? "",
+        notes: candidatureToEdit?.notes ?? "",
+        mode: candidatureToEdit?.mode ?? "annonce", // Mode initial par défaut
+        sourceAnnonce: candidatureToEdit?.mode === "annonce" ? candidatureToEdit.sourceAnnonce : "linkedin",
+        urlAnnonce: candidatureToEdit?.mode === "annonce" ? (candidatureToEdit.urlAnnonce ?? "") : "",
+        referenceAnnonce: candidatureToEdit?.mode === "annonce" ? (candidatureToEdit.referenceAnnonce ?? "") : "",
+        canalApproche: candidatureToEdit?.mode === "spontanee" ? (candidatureToEdit.canalApproche ?? "email") : "email",
+        raisonCiblage: candidatureToEdit?.mode === "spontanee" ? (candidatureToEdit.raisonCiblage ?? "") : "",
+    };
+}
 
-export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
+export function ApplicationForm({ onClose, onSubmit, candidatureToEdit }: ApplicationFormProps) {
     // 2. Initialisation complète et sans erreur TypeScript
-    const [formData, setFormData] = useState<FormState>({
-        entreprise: "",
-        posteVise: "",
-        contrat: "cdi",
-        statut: "a_preparer",
-        priorite: "moyenne",
-        dateCreation: new Date().toISOString().split("T")[0],
-        dateEnvoi: "",
-        dateRelance: "",
-        contact: "",
-        notes: "",
-        mode: "annonce", // Mode initial par défaut
-        sourceAnnonce: "linkedin",
-        urlAnnonce: "",
-        referenceAnnonce: "",
-        canalApproche: "email",
-        raisonCiblage: "",
-    });
+    const [formData, setFormData] = useState(() => createInitialFormState(candidatureToEdit));
 
     // 3. Gestionnaire unique universel (gère input, select, textarea)
     const handleChange = (
@@ -79,7 +83,7 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
 
         // On extrait et prépare la base commune
         const baseCandidature = {
-            id: crypto.randomUUID(),
+            id: candidatureToEdit?.id ?? crypto.randomUUID(),
             entreprise: formData.entreprise,
             posteVise: formData.posteVise,
             contrat: formData.contrat,
@@ -111,9 +115,7 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
                 ...(formData.raisonCiblage && { raisonCiblage: formData.raisonCiblage }),
             };
         }
-
         onSubmit(donneesFinales);
-        onClose();
     };
 
     return (
@@ -121,7 +123,11 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
             <div className="w-full max-w-2xl rounded-xl bg-white p-6 shadow-2xl flex flex-col gap-4 my-8">
 
                 <div className="flex justify-between items-start">
-                    <h2 className="text-xl font-bold text-slate-900">Nouvelle candidature</h2>
+                    <h2 className="text-xl font-bold text-slate-900">
+                        {candidatureToEdit
+                            ? "Modifier la candidature"
+                            : "Nouvelle candidature"}
+                    </h2>
                     <button type="button" onClick={onClose} className="text-slate-400 hover:text-slate-600">✕</button>
                 </div>
 
@@ -182,6 +188,7 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
                                 <option value="envoyee">Envoyée</option>
                                 <option value="relancee">Relancée</option>
                                 <option value="entretien">Entretien</option>
+                                <option value="acceptee">Acceptée</option>
                                 <option value="sans_reponse">Sans réponse</option>
                                 <option value="refusee">Refusée</option>
                             </select>
@@ -207,14 +214,14 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-1">
-                                    <label className="font-medium text-slate-700">Lien de l'annonce</label>
+                                    <label className="font-medium text-slate-700">Lien de l&apos;annonce</label>
                                     <input type="url" name="urlAnnonce" value={formData.urlAnnonce} onChange={handleChange} className="rounded-lg border p-2" placeholder="https://..." />
                                 </div>
                             </div>
                         ) : (
                             <div className="space-y-4">
                                 <div className="flex flex-col gap-1">
-                                    <label className="font-medium text-slate-700">Canal d'approche</label>
+                                    <label className="font-medium text-slate-700">Canal d&apos;approche</label>
                                     <select name="canalApproche" value={formData.canalApproche} onChange={handleChange} className="rounded-lg border p-2 bg-white">
                                         {Object.entries(CANAL_APPROCHE).map(([key, val]) => (
                                             <option key={key} value={key}>{val}</option>
@@ -261,7 +268,9 @@ export function ApplicationForm({ onClose, onSubmit }: ApplicationFormProps) {
                             Annuler
                         </button>
                         <button type="submit" className="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 shadow-sm">
-                            Sauvegarder
+                            {candidatureToEdit
+                                ? "Mettre à jour"
+                                : "Ajouter"}
                         </button>
                     </div>
                 </form>
