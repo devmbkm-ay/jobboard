@@ -11,9 +11,11 @@ import { formatDate } from "@/lib/date";
 export function DetailDrawer({
     candidature,
     onClose,
+    onDelete,
 }: {
     candidature: Candidature | null;
     onClose: () => void;
+    onDelete: (id: string) => void;
 }) {
     if (!candidature) return null;
 
@@ -89,7 +91,7 @@ export function DetailDrawer({
                             )}
                             {candidature.urlAnnonce && (
                                 <div className="flex flex-col gap-1">
-                                    <label className="text-xs font-medium text-slate-700">Lien de l'annonce</label>
+                                    <label className="text-xs font-medium text-slate-700">Lien de l&apos;annonce</label>
                                     <a
                                         href={candidature.urlAnnonce}
                                         target="_blank"
@@ -105,7 +107,7 @@ export function DetailDrawer({
                         <div className="flex flex-col gap-3">
                             {candidature.canalApproche && (
                                 <div className="flex flex-col gap-1">
-                                    <label className="text-xs font-medium text-slate-700">Canal d'approche</label>
+                                    <label className="text-xs font-medium text-slate-700">Canal d&apos;approche</label>
                                     <p className="text-sm text-slate-900">{CANAL_APPROCHE[candidature.canalApproche]}</p>
                                 </div>
                             )}
@@ -126,13 +128,34 @@ export function DetailDrawer({
                     </div>
                 )}
 
-                <button
-                    type="button"
-                    onClick={onClose}
-                    className="mt-auto rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200"
-                >
-                    Fermer
-                </button>
+                <div className="mt-auto flex items-center justify-between border-t border-slate-200 pt-4">
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="mt-auto rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200"
+                    >
+                        Fermer
+                    </button>
+
+                    <div className="flex items-center gap-2">
+                        <button
+                            type="button"
+                            onClick={() => onDelete(candidature.id)}
+                            className="mt-auto rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+                        >
+                            Supprimer
+                        </button>
+                        <button
+                            type="button"
+                            // onClick={onClose}
+                            className="mt-auto rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200"
+                        >
+                            Editer
+                        </button>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     );

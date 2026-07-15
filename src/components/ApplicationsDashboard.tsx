@@ -24,7 +24,15 @@ export default function ApplicationsDashboard() {
         saveCandidatures([...candidatures, newCandidature]);
     };
     const selectedCandidature = candidatures.find(c => c.id === selectedId) ?? null;
-
+    const deleteCandidature = (id: string) => {
+        const remainingCandidatures = candidatures.filter(
+            (candidature) => candidature.id !== id
+        );
+        saveCandidatures(remainingCandidatures);
+        if (selectedId === id) {
+            setSelectedId(null);
+        }
+    };
     return (
         <div>
             {/* On utilise flex et justify-between pour séparer le texte et le bouton */}
@@ -53,7 +61,11 @@ export default function ApplicationsDashboard() {
             {selectedCandidature && (
                 <DetailDrawer
                     candidature={selectedCandidature}
+                    onDelete={deleteCandidature}
                     onClose={() => setSelectedId(null)}
+                // onEdit={() => {
+                // Logique d'édition
+                // }}
                 />
             )}
             <div className="mt-6">
