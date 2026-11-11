@@ -26,7 +26,14 @@ function isCandidature(value: unknown): value is Candidature {
 }
 
 function readFromLocalStorage(): Candidature[] {
+    // localStorage n'existe pas côté serveur, donc on ne devrait jamais appeler cette fonction là-bas.
+    if (typeof localStorage === "undefined") {
+        return [];
+    }
+    // On ne peut pas faire confiance à localStorage : l'utilisateur peut avoir modifié la valeur à la main, ou un autre onglet peut avoir mis n'importe quoi dedans.
     const raw = localStorage.getItem(STORAGE_KEY);
+
+    // null signifie que la clé n'existe pas encore, donc on retourne un tableau vide.
     if (raw === null) return [];
 
     try {

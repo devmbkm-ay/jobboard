@@ -21,6 +21,15 @@ export function DetailDrawer({
 }) {
     if (!candidature) return null;
 
+    const handleDeleteClick = () => {
+        const isConfirmed = window.confirm(
+            `Supprimer la candidature pour ${candidature.entreprise} ? Cette action est irréversible.`
+        );
+        if (isConfirmed) {
+            onDelete(candidature.id);
+        }
+    }
+
     return (
         <div className="fixed inset-0 z-50 flex">
             <div className="absolute inset-0 z-0 bg-slate-900/50" onClick={onClose}></div>
@@ -142,7 +151,7 @@ export function DetailDrawer({
                     <div className="flex items-center gap-2">
                         <button
                             type="button"
-                            onClick={() => onDelete(candidature.id)}
+                            onClick={handleDeleteClick}
                             className="mt-auto rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
                         >
                             Supprimer
@@ -150,7 +159,6 @@ export function DetailDrawer({
                         <button
                             type="button"
                             onClick={() => onEdit(candidature.id)}
-                            // onClickCapture={onClose}
                             className="mt-auto rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                         >
                             Editer
