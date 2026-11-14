@@ -6,6 +6,12 @@
 
 Tracker personnel de candidatures (recherche d'alternance webmarketing), construit en apprentissage pas-à-pas pour comprendre chaque couche.
 
+## Architecture et gestion de l'état
+
+- **`components/ApplicationsDashboard.tsx`** — composant client central : il orchestre l'écran, lit la collection de candidatures via `useSyncExternalStore`, garde uniquement des états UI locaux (`selectedId`, `showForm`, `editingId`) et délègue l'affichage à `ApplicationTable`, `ApplicationForm` et `DetailDrawer`.
+- **`lib/storage.ts`** — couche d'accès au store externe : `getCandidaturesSnapshot()` hydrate une seule fois depuis `localStorage`, `getServerCandidaturesSnapshot()` renvoie un tableau vide stable côté serveur, `subscribeCandidatures()` écoute les changements, et `saveCandidatures()` met à jour le cache mémoire puis persiste dans `localStorage` avant de notifier les abonnés.
+- **`useSyncExternalStore`** — choisi pour exposer `localStorage` comme source de vérité externe sans `useState`/`useEffect` pour la donnée métier : React reçoit un snapshot lisible, une fonction d'abonnement et un snapshot serveur stable, ce qui évite les soucis d'hydratation et synchronise automatiquement l'interface après chaque écriture.
+
 ## Stack
 
 Next.js (App Router) · TypeScript · Bun · Tailwind CSS · Framer Motion (plus tard) · déploiement Vercel.
