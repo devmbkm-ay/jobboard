@@ -71,6 +71,7 @@ export default function ApplicationsDashboard() {
                 </h1>
                 {/* Le bouton est maintenant ici, aligné à droite sur grand écran */}
                 <button
+                    data-anatomy="bouton-ajouter"
                     className="flex h-fit w-fit rounded-lg bg-blue-600 px-3 py-1 text-sm font-medium mb-4 text-white hover:bg-blue-700"
                     onClick={() => {
                         setEditingId(null); // Réinitialiser l'édition si on ouvre le formulaire pour une nouvelle candidature

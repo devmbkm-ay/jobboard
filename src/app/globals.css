@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Mode anatomie : repère les zones inspectables (voir src/anatomy). */
+.anatomy-on [data-anatomy] {
+  outline: 1px dashed rgb(37 99 235 / 0.45);
+  outline-offset: 2px;
+  cursor: help;
+}
+
+.anatomy-on [data-anatomy]:hover {
+  outline: 2px solid rgb(37 99 235 / 0.8);
+}

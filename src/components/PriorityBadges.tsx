@@ -11,7 +11,7 @@ export function PriorityBadges({ priorite }: PriorityBadgesProps) {
     const config = PRIORITE_CANDIDATURE[priorite];
 
     return (
-        <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${config.badgeClassName}`}>
+        <span data-anatomy="badge-priorite" className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${config.badgeClassName}`}>
             {config.label}
         </span>
     );

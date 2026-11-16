@@ -1,7 +1,9 @@
 import ApplicationsDashboard from "@/components/ApplicationsDashboard";
+import { AnatomyLayer } from "@/anatomy/AnatomyLayer";
 
 export default function App() {
     return (
+        <AnatomyLayer>
         <main className="min-h-screen bg-slate-50 px-6 py-8 text-slate-950">
             <section className="mx-auto max-w-7xl space-y-8">
                 <header className="flex flex-col gap-2">
@@ -16,5 +18,6 @@ export default function App() {
                 <ApplicationsDashboard />
             </section>
         </main>
+        </AnatomyLayer>
     );
 }
