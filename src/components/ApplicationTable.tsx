@@ -73,7 +73,7 @@ export function ApplicationTable({
     onRowClick: (id: string) => void;
 }) {
     return (
-        <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div data-anatomy="table" className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table className="min-w-full divide-y divide-slate-200">
                 <thead className="bg-slate-50">
                     <tr>
@@ -93,11 +93,12 @@ export function ApplicationTable({
                     {candidatures.map((candidature) => (
                         <tr
                             key={candidature.id}
+                            data-anatomy="ligne"
                             className="transition hover:bg-slate-50"
                             onClick={() => onRowClick(candidature.id)}
                         >
                             {columns.map((column) => (
-                                <td key={column.key} className={cellClassName}>
+                                <td key={column.key} data-anatomy={`cellule-${column.key}`} className={cellClassName}>
                                     {column.render(candidature)}
                                 </td>
                             ))}

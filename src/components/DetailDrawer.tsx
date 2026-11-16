@@ -34,7 +34,7 @@ export function DetailDrawer({
         <div className="fixed inset-0 z-50 flex">
             <div className="absolute inset-0 z-0 bg-slate-900/50" onClick={onClose}></div>
 
-            <div className="relative z-10 ml-auto flex h-full w-full max-w-md flex-col gap-4 overflow-y-auto border-l border-slate-200 bg-white p-6 shadow-2xl">
+            <div data-anatomy="tiroir" className="relative z-10 ml-auto flex h-full w-full max-w-md flex-col gap-4 overflow-y-auto border-l border-slate-200 bg-white p-6 shadow-2xl">
                 <div className="flex items-start justify-between">
                     <div>
                         <h2 className="text-xl font-bold text-slate-900">{candidature.entreprise}</h2>
@@ -152,6 +152,7 @@ export function DetailDrawer({
                         <button
                             type="button"
                             onClick={handleDeleteClick}
+                            data-anatomy="tiroir-supprimer"
                             className="mt-auto rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
                         >
                             Supprimer
@@ -159,6 +160,7 @@ export function DetailDrawer({
                         <button
                             type="button"
                             onClick={() => onEdit(candidature.id)}
+                            data-anatomy="tiroir-editer"
                             className="mt-auto rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
                         >
                             Editer
